@@ -6,6 +6,7 @@ import { useBase } from '/$/base';
 import { type AxiosProgressEvent } from 'axios';
 import { merge } from 'lodash-es';
 import { useI18n } from 'vue-i18n';
+import COS from 'cos-js-sdk-v5';
 
 export function useUpload() {
 	const { options } = module.get('upload');
@@ -37,6 +38,48 @@ export function useUpload() {
 
 					// Key
 					let key = isLocal ? name : pathJoin(prefixPath!, name);
+
+					const uploadCOS = async ({ host, preview, data }: Upload.Request) => {
+						const cos = new COS({
+							SecretId: data.tmpSecretId,
+							SecretKey: data.tmpSecretKey,
+							SecurityToken: data.sessionToken,
+							StartTime: data.startTime,
+							ExpiredTime: data.expiredTime
+						});
+
+						//get bucket and region from host
+						const bucket = host.split('.')[0].split('//')[1];
+						const region = host.split('.')[2];
+						try {
+							key = '_ALLOW_DIR_/' + key;
+							await cos.uploadFile({
+								Bucket: bucket, // 填写自己的 bucket，必须字段
+								Region: region, // 存储桶所在地域，必须字段
+								Key: key, // 存储在桶里的对象键（例如1.jpg，a/b/test.txt），必须字段
+								Body: file, // 上传文件对象
+								SliceSize: 1024 * 1024 * 5, // 触发分块上传的阈值，超过5MB 使用分块上传，小于5MB使用简单上传。可自行设置，非必须
+								onProgress: function (progressData) {
+									console.log('上传进度：', progressData);
+									onProgress?.(progressData.percent * 100);
+								}
+							});
+
+							key = encodeURIComponent(key);
+
+							let url = '';
+
+							url = pathJoin(preview || host, key);
+
+							resolve({
+								key,
+								url,
+								fileId
+							});
+						} catch (error) {
+							console.log('上传失败', error);
+						}
+					};
 
 					// 多种上传请求
 					const next = async ({ host, preview, data }: Upload.Request) => {
@@ -128,9 +171,19 @@ export function useUpload() {
 								switch (type) {
 									// 腾讯
 									case 'cos':
-										next({
+										// next({
+										// 	host: res.url,
+										// 	data: res.credentials
+										// });
+										uploadCOS({
 											host: res.url,
-											data: res.credentials
+											data: {
+												tmpSecretId: res.credentials.tmpSecretId,
+												tmpSecretKey: res.credentials.tmpSecretKey,
+												sessionToken: res.credentials.sessionToken,
+												startTime: res.startTime,
+												expiredTime: res.expiredTime
+											}
 										});
 										break;
 									// 阿里

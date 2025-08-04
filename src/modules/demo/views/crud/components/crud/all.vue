@@ -476,12 +476,12 @@ const Table = useTable({
 			orderNum: 1,
 			minWidth: 165,
 			prop: 'createTime',
-			sortable: 'custom',
+			// sortable: 'custom',
 			search: {
 				component: {
 					name: 'cl-date-picker',
 					props: {
-						type: 'date',
+						type: 'daterange',
 						valueFormat: 'YYYY-MM-DD',
 						placeholder: '搜索日期'
 					}

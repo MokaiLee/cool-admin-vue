@@ -18,3 +18,4 @@ yarn-error.log*
 *.sw*
 
 vite.config.ts.timestamp*
+_usr_local_nginx_conf_nginx.conf

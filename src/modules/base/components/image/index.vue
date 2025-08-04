@@ -69,6 +69,9 @@ const urls = computed(() => {
 		if (urls.startsWith('data:image')) {
 			return [urls];
 		}
+		if (urls.startsWith('[')) {
+			return JSON.parse(urls);
+		}
 
 		return (urls || '').split(',').filter(Boolean);
 	}
