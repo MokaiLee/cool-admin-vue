@@ -208,7 +208,7 @@ router.beforeEach(async (to, from, next) => {
 
 	// 如果路由不存在
 	if (!route) {
-		next(user.token ? '/404' : '/login'); // 根据用户登录状态重定向
+		next(user.token ? '/404' : '/welcome'); // 根据用户登录状态重定向
 		return;
 	}
 
@@ -236,7 +236,7 @@ router.beforeEach(async (to, from, next) => {
 
 		// 如果路径不在忽略 Token 验证的列表中，重定向到登录页
 		if (!config.ignore.token.some(ignorePath => to.path === ignorePath)) {
-			next('/login');
+			next('/welcome');
 			return;
 		}
 	}

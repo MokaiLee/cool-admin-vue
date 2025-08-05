@@ -6,7 +6,7 @@ const proxy = {
 	},
 
 	'/prod/': {
-		target: 'https://show.cool-admin.com',
+		target: 'https://mokai.icu',
 		changeOrigin: true,
 		rewrite: (path: string) => path.replace(/^\/prod/, '/api')
 	}
