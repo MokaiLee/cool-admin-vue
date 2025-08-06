@@ -19,8 +19,6 @@
 import { DArrowLeft } from '@element-plus/icons-vue';
 import Avatar from './components/Avatar.vue';
 import BaseLayout from './components/BaseLayout.vue';
-import { request } from '/@/cool/service/request';
-import { random } from 'lodash-es';
 
 export default {
 	name: 'welcome',
@@ -293,6 +291,29 @@ export default {
 		color: white;
 		font-size: 1rem;
 		font-style: italic;
+	}
+}
+
+// 手机样式
+@media only screen and (max-width: 1024px) {
+	.name {
+		margin-top: 30px;
+		font-size: 2rem;
+		font-weight: bold;
+		color: white;
+		font-style: italic;
+		text-align: center;
+	}
+	.something {
+		max-width: 370px;
+		margin: 10px auto 0 auto;
+		text-align: center;
+		.clause {
+			margin-top: 20px;
+			color: white;
+			font-size: 1rem;
+			font-style: italic;
+		}
 	}
 }
 </style>

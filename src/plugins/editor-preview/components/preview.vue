@@ -84,7 +84,7 @@ const props = defineProps({
 	},
 	height: {
 		type: String,
-		default: '60vh'
+		default: '60dvh'
 	},
 	width: {
 		type: String,

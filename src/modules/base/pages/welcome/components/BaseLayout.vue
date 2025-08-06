@@ -1,13 +1,15 @@
 <template>
-	<div class="base">
-		<div class="wrapper">
-			<div class="content">
-				<slot />
+	<el-scrollbar>
+		<div class="base">
+			<div class="wrapper">
+				<div class="content">
+					<slot />
+				</div>
+				<cloud />
 			</div>
-			<cloud />
 		</div>
-	</div>
-	<sky />
+		<sky />
+	</el-scrollbar>
 </template>
 
 <script>
@@ -26,7 +28,7 @@ export default {
 @import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@700&display=swap');
 .base {
 	width: 100%;
-	min-height: 100vh;
+	min-height: 100dvh;
 	font-family: 'Nunito Sans', sans-serif;
 	font-size: 15px;
 	display: flex;
@@ -48,7 +50,7 @@ sky {
 	position: relative;
 	z-index: 1;
 	width: 100%;
-	min-height: 100vh;
+	min-height: 100dvh;
 	font-family: 'Nunito Sans', sans-serif;
 	font-size: 15px;
 	display: flex;

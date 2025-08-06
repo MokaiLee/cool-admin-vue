@@ -46,6 +46,24 @@ $border-color: white;
 		height: 100%;
 	}
 }
+@media only screen and (max-width: 1024px) {
+	.avatar {
+		cursor: pointer;
+		max-width: 100px;
+		max-height: 100px;
+		margin: 0 auto;
+		border-radius: 50%;
+		overflow: hidden;
+		border: $border-color 5px solid;
+		background-color: $border-color;
+		animation: at-ripple 1.5s linear infinite;
+		@include flex-center;
+		img {
+			width: 100%;
+			height: 100%;
+		}
+	}
+}
 @keyframes at-ripple {
 	0% {
 		box-shadow:

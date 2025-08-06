@@ -14,7 +14,7 @@
 	<cl-dialog
 		v-model="doc.visible"
 		:title="$t('文档预览')"
-		height="70vh"
+		height="70dvh"
 		width="80%"
 		:scrollbar="false"
 	>

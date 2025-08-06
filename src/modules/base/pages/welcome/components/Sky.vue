@@ -54,6 +54,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
+@use 'sass:math';
 $sceneGradient: linear-gradient(#1d2b49, #1a45a0, #91cdff, #fff);
 
 //設定Mixins
@@ -78,7 +79,7 @@ label {
 
 .scene {
 	width: 100vw;
-	height: 100vh;
+	height: 100dvh;
 	overflow: hidden;
 	background: $sceneGradient;
 	transition: 2s background;
@@ -120,8 +121,8 @@ label {
 	//產生30顆星星不同的偏移位置跟動畫delay
 	@for $i from 0 through 30 {
 		.star#{$i} {
-			$posX: random(100) * 1%;
-			$posY: random(80) * -1% + 50%;
+			$posX: math.random(100) * 1%;
+			$posY: math.random(80) * -1% + 50%;
 			@include abpos($posX, $posY);
 			animation-delay: $i * -0.1s;
 		}

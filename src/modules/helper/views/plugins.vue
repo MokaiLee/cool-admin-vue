@@ -978,7 +978,7 @@ onMounted(() => {
 				flex-shrink: 0;
 
 				img {
-					height: 60vh;
+					height: 60dvh;
 					border-radius: 12px;
 				}
 

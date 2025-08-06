@@ -116,7 +116,7 @@ function open() {
 			labelPosition: 'top'
 		},
 		dialog: {
-			height: '70vh',
+			height: '70dvh',
 			width: '1000px'
 		},
 		items: [
