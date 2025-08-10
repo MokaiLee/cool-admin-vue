@@ -11,10 +11,14 @@
 			<cl-filter label="状态筛选">
 				<!-- 配置prop，选择后会自动过滤列表 -->
 				<cl-select :options="dict.get('mall_order_status')" prop="status" :width="120" />
+				<cl-select :options="dict.get('mall_order_payType')" prop="payType" :width="120" />
 			</cl-filter>
 			<cl-flex1 />
+			<cl-search-key placeholder="请输入订单编号、用户ID"></cl-search-key>
 			<!-- 条件搜索 -->
 			<cl-search ref="Search" />
+			<!-- 高级搜索按钮 -->
+			<cl-adv-btn />
 		</cl-row>
 
 		<cl-row>
@@ -27,7 +31,8 @@
 			<!-- 分页控件 -->
 			<cl-pagination />
 		</cl-row>
-
+		<!-- 高级搜索 -->
+		<cl-adv-search ref="AdvSearch" />
 		<!-- 新增、编辑 -->
 		<cl-upsert ref="Upsert" />
 	</cl-crud>
@@ -38,7 +43,7 @@ defineOptions({
 	name: 'mall-order'
 });
 
-import { useCrud, useTable, useUpsert, useSearch } from '@cool-vue/crud';
+import { useCrud, useTable, useUpsert, useSearch, useAdvSearch } from '@cool-vue/crud';
 import { useCool } from '/@/cool';
 import { useI18n } from 'vue-i18n';
 import UserSelect from '/$/user/components/user-select.vue';
@@ -169,12 +174,31 @@ const Table = useTable({
 });
 
 // cl-search
-const Search = useSearch();
+const AdvSearch = useAdvSearch({
+	items: [
+		{
+			label: '创建时间',
+			prop: 'createTime',
+			component: {
+				name: 'cl-date-picker',
+				props: {
+					type: 'daterange',
+					valueFormat: 'YYYY-MM-DD'
+				}
+			}
+		}
+	]
+});
 
 // cl-crud
 const Crud = useCrud(
 	{
-		service: service.mall.order
+		service: service.mall.order,
+		dict: {
+			api: {
+				page: 'pageList'
+			}
+		}
 	},
 	app => {
 		app.refresh();
